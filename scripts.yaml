@@ -1,0 +1,88 @@
+basement_lights_main_normal:
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: group.basement_main
+      brightness: 255
+      kelvin: 3400
+basement_lights_main_bright:
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: group.basement_main
+      brightness: 255
+      kelvin: 3800
+basement_lights_main_dimmed:
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: group.basement_main
+      brightness: 255
+      kelvin: 2800
+basement_lights_playroom_normal:
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: group.basement_playroom
+      brightness: 255
+      kelvin: 3400
+basement_lights_tv_normal:
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: group.basement_tv
+      brightness: 255
+      kelvin: 3400
+basement_lights_main_off:
+  sequence:
+  - service: light.turn_off
+    data:
+      entity_id: group.basement_main
+      brightness: 255
+      kelvin: 3500
+basement_lights_main_movie:
+  alias: Basement Lights Movie
+  sequence:
+  - data:
+      entity_id: group.basement_main
+    service: light.turn_off
+  - data:
+      brightness_pct: 20
+      entity_id: group.basement_tv
+      kelvin: 2950
+    service: light.turn_on
+  - data:
+      entity_id: group.basement_tv
+      transition: 65
+    service: light.turn_off
+goodnight:
+  sequence:
+  - data:
+      entity_id:
+      - light.sink
+      - light.hue_color_lamp_4
+      - light.kitchen_table_lights
+      - switch.toy_room_light
+      - light.living_room
+      - switch.family_room_fan
+    service: light.turn_off
+dinnertime:
+  sequence:
+  - data:
+      brightness_pct: 35
+      entity_id: group.kitchen_table_lights
+      kelvin: 2500
+    service: light.turn_on
+daytime:
+  sequence:
+  - data:
+      brightness_pct: 100
+      entity_id: group.kitchen_table_lights
+      kelvin: 2800
+    service: light.turn_on
+  - data: {}
+    entity_id: light.sink
+    service: light.turn_on
+  - data: {}
+    entity_id: light.hue_color_lamp_4
+    service: light.turn_on

@@ -1,0 +1,109 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: ssl/privkey.pem
+  cors_allowed_origins:
+    - https://hass.octs.tech
+    - http://10.0.1.17
+    - wss://hass.octs.tech
+
+websocket_api:
+
+api:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+# autodiscoverying devices
+wemo:
+  discovery: false
+  static:
+    - 10.1.2.32
+    - 10.1.2.33
+    - 10.1.2.34
+    - 10.1.2.50
+    - 10.1.2.53
+
+# Text to speech
+tts:
+  - platform: google_translate
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
+    base_url: https://hass.octs.tech:8123
+    service_name: google_say
+# climate
+climate:
+  - platform: honeywell
+    username: enzolb50@gmail.com
+    password: Heat1000
+    region: us
+    scan_interval: 600
+
+# lifix manual defininiton
+
+#vaccum
+#vacuum:
+#  - platform: roomba
+#    host: 192.168.1.80
+#    username: 3165C41850223730
+#    password: :1:1532181146:SbWERBEykMOLaEes
+
+#mqtt
+mqtt:
+  broker: 127.0.0.1
+  username: hass
+  password: atit1000
+  discovery: true
+  discovery_prefix: homeassistant
+  birth_message:
+    topic: "hass/status"
+    payload: "online"
+    qos: 0
+    retain: false
+
+#expose devices to alexa
+alexa:
+  smart_home:
+    locale: en-US
+    endpoint: https://api.amazonalexa.com/v3/events
+    client_id: amzn1.application-oa2-client.b733429effc24ea0a8a1da4ba8d77d66
+    client_secret: f4a3fe1b4bd614321800af5454afac9d37aa70f9e8566f102e8ef3a032ad7628
+    filter:
+      include_entities:
+        - light.kitchen_table_lights
+        - light.sink
+        - light.hue_color_lamp_1
+        - light.hue_color_lamp_2
+        - light.hue_color_lamp_4
+        - switch.master_lamp
+        - light.basement_tv
+        - light.basement_playroom
+        - light.basement_office
+      include_domains:
+        - script
+        - scene
+
+#enable discovery
+discovery:
+
+# include other files
+light: !include lg.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+homeassistant:
+  customize: !include customize.yaml
+
+sensor:
+  # One entry for each beacon you want to track
+  - platform: mqtt_room
+    device_id: "iBeacon:e260e2e5-6485-4032-95ea-a75727f8533a-0-0"
+    name: "Enzo Phone"
+    state_topic: "espresense/rooms"
+    timeout: 60
+    away_timeout: 120

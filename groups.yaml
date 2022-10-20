@@ -1,0 +1,127 @@
+#First floor kitchen and living room
+kitchen_table_lights:
+  name: Kitchen Table Lights
+  icon: mdi:ceiling-light
+  entities:
+    - light.kitchen_light_1
+    - light.kitchen_light_2
+    - light.kitchen_light_3
+
+kitchen:
+  name: Kitchen
+  icon: mdi:fridge-outline
+  entities:
+    - group.kitchen_table_lights
+    - light.sink
+
+living_room:
+  name: living room
+  icon: mdi:sofa
+  entities:
+  - switch.family_room_fan
+  - light.hue_color_lamp_4
+#Fist floor other rooms
+toy_room:
+  name: toy room
+  icon: mdi:pinwheel
+  entities:
+    - switch.toy_room_light
+    - binary_sensor.wemo_motion
+#upstairs
+upstairs_hall:
+  name: upstairs hallway
+  icon: mdi:stairs
+  entities:
+    - light.hue_color_lamp_3
+
+enzo_bedroom:
+  name: Enzo's Bedroom
+  icon: mdi:bed-empty
+  entities:
+    - light.hue_color_lamp_1
+    - light.hue_color_lamp_2
+
+master_bedroom:
+  name: Master Bedroom
+  icon: mdi:hotel
+  entities:
+    - switch.master_lamp
+#utility
+media_players:
+  name: Media Players
+  icon: mdi:television
+  entities:
+    - media_player.family_room_speaker
+    - media_player.family_room_tv
+    - media_player.master_bedroom_tv
+    - media_player.samsung_6_series_50_un50mu630
+#outside
+front_porch_lights:
+  name: Front Porch Lights
+  icon: mdi:track-light
+  entities:
+    - light.hue_color_lamp_5
+    - light.hue_color_lamp_6
+    
+#basement
+basement_playroom_back:
+  name: Basement Playroom back
+  icon: mdi:wall-sconce-flat
+  entities:
+    - light.basement_main_back_left
+    - light.basement_main_back_right
+    
+basement_playroom_mid:
+  name: Basement Playroom Mid
+  icon: mdi:wall-sconce-flat
+  entities:
+    - light.basement_main_mid_left
+    - light.basement_main_mid_right
+    
+basement_tv:
+  name: Basement TV
+  icon: mdi:wall-sconce-flat
+  entities:
+    - light.basement_tv_right
+    - light.basement_tv_left
+    
+basement_office_main:
+  name: Basement Offcie Main
+  icon: mdi:wall-sconce-flat
+  entities:
+    - light.basement_office_front
+    - light.basement_office_back
+
+basement_office_desk:
+  name: Basement Office Desk
+  icon: mdi:desk
+  entities:
+    - light.basement_office_desk
+    
+basement_playroom:
+  name: Basement Playroom
+  icon: mdi:toy-brick
+  entities:
+    - group.basement_playroom_mid
+    - group.basement_playroom_back
+    
+basement_main:
+  name: Basement Main
+  icon: mdi:wall-sconce-flat
+  entities:
+    - group.basement_playroom
+    - group.basement_tv
+    
+basement_office:
+  name: Basement Office
+  icon: mdi:desk
+  entities:
+    - group.basement_office_desk
+    - group.basement_office_main
+    
+basement:
+  name: Basement
+  icon: mdi:home-floor-b
+  entities:
+    - group.basement_office
+    - group.basement_main

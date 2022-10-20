@@ -1,0 +1,55 @@
+  - platform: group
+    name: Kitchen Table Lights
+    entities:
+    - light.kitchen_light_1
+    - light.kitchen_light_2
+    - light.kitchen_light_3
+    
+  - platform: group
+    name: Basement Playroom Back
+    entities:
+    - light.basement_main_back_left
+    - light.basement_main_back_right
+    
+  - platform: group
+    name: Basement Playroom Mid
+    entities:
+    - light.basement_main_mid_left
+    - light.basement_main_mid_right
+    
+  - platform: group
+    name: Basement TV
+    entities:
+    - light.basement_tv_right
+    - light.basement_tv_left
+    
+  - platform: group
+    name: Basement Office Main
+    entities:
+    - light.basement_office_back
+    - light.basement_office_front
+    
+  - platform: group
+    name: Basement Playroom
+    entities:
+    - light.basement_main_back_left
+    - light.basement_main_back_right
+    - light.basement_main_mid_left
+    - light.basement_main_mid_right
+    
+  - platform: group
+    name: Basement Office
+    entities:
+    - light.basement_office_front
+    - light.basement_office_back
+    - light.basement_office_desk
+    
+  - platform: group
+    name: Basement Main
+    entities:
+    - light.basement_main_back_left
+    - light.basement_main_back_right
+    - light.basement_main_mid_left
+    - light.basement_main_mid_right
+    - light.basement_tv_right
+    - light.basement_tv_left

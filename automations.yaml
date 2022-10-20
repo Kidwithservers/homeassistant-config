@@ -1,0 +1,160 @@
+- id: ring_motion_porch_lights_on
+  alias: Ring Lights On
+  trigger:
+    platform: state
+    entity_id: binary_sensor.front_door_motion_2
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+    service: light.turn_on
+    data:
+      entity_id: group.front_porch_lights
+      brightness: 255
+      kelvin: 3500
+- id: ring_motion_porch_lights_off
+  alias: Ring Lights Off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.front_door_motion_2
+    to: 'off'
+  condition:
+    condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - delay:
+      minutes: 10
+  - service: light.turn_on
+    data:
+      entity_id: group.front_porch_lights
+      brightness: 144
+      kelvin: 2000
+- id: porch_lights_sunset
+  alias: Porch Lights Timer On
+  trigger:
+    platform: sun
+    event: sunset
+  action:
+    service: light.turn_on
+    data:
+      entity_id: group.front_porch_lights
+      brightness: 144
+      kelvin: 2000
+- id: porch_lights_sunrise
+  alias: Porch Lights Timer Off
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+    service: light.turn_off
+    data:
+      entity_id: group.front_porch_lights
+- id: 930 off
+  alias: 9:30 Off
+  trigger:
+    platform: time
+    at: '21:30:00'
+  action:
+    service: script.goodnight
+- id: 530 on
+  alias: 5:30 On
+  trigger:
+    platform: time
+    at: 05:30:00
+  condition:
+    condition: state
+    entity_id: input_boolean.couch_sleeping
+    state: 'off'
+  action:
+    service: light.turn_on
+    data:
+      entity_id:
+      - light.hue_color_lamp_4
+      - light.kitchen_table_lights
+      - light.sink
+- id: 730 on
+  alias: 7:30 On
+  trigger:
+    platform: time
+    at: 07:30:00
+  action:
+    service: script.daytime
+- id: toy_room_motion_trigger
+  alias: Toy Room Motion Lights On
+  trigger:
+    platform: state
+    entity_id: binary_sensor.wemo_motion
+    to: 'on'
+  action:
+    service: switch.turn_on
+    data:
+      entity_id: switch.toy_room_light
+- id: toy_room_motion_off
+  alias: Toy Room Motion Lights Off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.wemo_motion
+    to: 'off'
+    for:
+      minutes: '5'
+  action:
+    service: switch.turn_off
+    data:
+      entity_id: switch.toy_room_light
+- id: basement_office_motion_trigger
+  alias: Basement Office Lights On
+  trigger:
+    platform: state
+    entity_id: binary_sensor.server_room
+    to: 'on'
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.basement_office
+- id: basement_office_motion_off
+  alias: Basement Office Motion Lights Off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.server_room
+    to: 'off'
+    for:
+      minutes: '17'
+  action:
+    service: light.turn_off
+    data:
+      entity_id: light.basement_office
+- id: '1638394628502'
+  alias: Server room fan off
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 81d3758bf6211c0ba3524baaa72d8505
+    entity_id: binary_sensor.server_room_closet
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 12cdb2f4db984aa2b70d3939b18490b2
+    entity_id: switch.server_room_fan
+    domain: switch
+  mode: single
+- id: '1638394770419'
+  alias: Server room fan on
+  description: ''
+  trigger:
+  - type: not_opened
+    platform: device
+    device_id: 81d3758bf6211c0ba3524baaa72d8505
+    entity_id: binary_sensor.server_room_closet
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 12cdb2f4db984aa2b70d3939b18490b2
+    entity_id: switch.server_room_fan
+    domain: switch
+  mode: single
